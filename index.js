@@ -20,6 +20,24 @@ app.post("/signup", async (req, resp) => {
     resp.send(result);
   });
 
+  app.get("/data",(req,res)=>{
+    let data=[
+        {
+            name:"hassan"
+        },
+        {
+            name:"hassan"
+        },
+        {
+            name:"hassan"
+        },
+        {
+            name:"hassan"
+        },
+    ]
+    res.send(data)
+  })
+
 
 
 app.listen(5000)
