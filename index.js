@@ -1,6 +1,8 @@
 const express = require("express");
 const app=express();
 const cors =require("cors");
+const jwt =require("jsonwebtoken")
+let secKey="hassan"
 
 require("./db/config")
 let User=require("./db/user")
@@ -17,7 +19,8 @@ app.post("/signup", async (req, resp) => {
     let result = await user.save();
     result = result.toObject();
     delete result.password;
-    resp.send(result);
+    let token = jwt.sign({email:result.email,id:result._id},secKey)
+    resp.status(201).json({data:result,token:token})
   });
 
   app.get("/data",(req,res)=>{
