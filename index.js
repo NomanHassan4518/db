@@ -7,7 +7,14 @@ let secKey="hassan"
 require("./db/config")
 let User=require("./db/user")
 
-app.use(cors())
+app.use(express.json());
+const corsConfig={
+    origin:"*",
+    credential:true,
+    methods:["GET","POST"]
+}
+app.options("",cors(corsConfig))
+app.use(cors(corsConfig));
 app.use(express.json())
 
 app.get("/",(req,res)=>{
