@@ -32,9 +32,10 @@ app.post("/signup", async (req, resp) => {
   });
 
   app.post("/addproduct", async (req, resp) => {
-    let book = Book(req.body);
-    let result = await book.save();
-    resp.status(201).json({data:result})
+      let book = Book(req.body)
+      let result = await book.save()
+     await resp.send(result)
+      console.log(result);
   });
 
 
