@@ -19,7 +19,7 @@ app.use(cors(corsConfig));
 app.use(express.json())
 
 app.get("/",(req,res)=>{
-    res.send("api is working")
+    res.send("api is")
 })
 
 app.post("/signup", async (req, resp) => {
@@ -31,10 +31,23 @@ app.post("/signup", async (req, resp) => {
     resp.status(201).json({data:result,token:token})
   });
 
+  app.post("/login", async (req, resp) => {
+    if (req.body.email && req.body.password) {
+      const user = await User.findOne(req.body).select("-password");
+      if (user) {
+        resp.send(user);
+      } else {
+        resp.send("User not found");
+      }
+    } else {
+      resp.send("User not found");
+    }
+  });
+
   app.post("/addproduct", async (req, resp) => {
       let book = Book(req.body)
       let result = await book.save()
-     await resp.send(result)
+      resp.send(result)
       console.log(result);
   });
 
