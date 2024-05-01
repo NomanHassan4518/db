@@ -6,6 +6,7 @@ let secKey="hassan"
 
 require("./db/config")
 let User=require("./db/user")
+let Book=require("./db/book")
 
 app.use(express.json());
 const corsConfig={
@@ -30,23 +31,11 @@ app.post("/signup", async (req, resp) => {
     resp.status(201).json({data:result,token:token})
   });
 
-  app.get("/data",(req,res)=>{
-    let data=[
-        {
-            name:"hassan"
-        },
-        {
-            name:"hassan"
-        },
-        {
-            name:"hassan"
-        },
-        {
-            name:"hassan"
-        },
-    ]
-    res.send(data)
-  })
+  app.post("/addproduct", async (req, resp) => {
+    let book = Book(req.body);
+    let result = await book.save();
+    resp.status(201).json({data:result})
+  });
 
 
 
